@@ -3,40 +3,39 @@ const refs = {
     btnStart: document.querySelector( ` [data-start]`),
     btnStop : document.querySelector('[data-stop]'),
 }
-const changeColor = {
-    timerID : null,
-    isDisable: false,
-    start() {
-        if (this.isDisable) {
-            return;
-        }
-        this.isDisable = true;
-    this.timerID =  setInterval(() => {
-        document.body.style.backgroundColor = getRandomHexColor(),
-            console.log(`click`)
-    }, 1000);
-        
-    },
-
-    stop() {
-       this.isDisable = false;
-        clearInterval(this.timerID);
-        console.log(`stop`)
-     
-    
-        },
-
-}
-refs.btnStart.addEventListener(`click`, changeColor.start)
-refs.btnStop.addEventListener(`click`, changeColor.stop)
-
-
-
+let timerID = null;
+let isDisable = false;
+refs.btnStart.addEventListener(`click`, changeColor)
+refs.btnStop.addEventListener(`click`, stop)
 
 function getRandomHexColor() {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
     
-}
+};
+
+function changeColor() {
+        if (isDisable) {
+            return;
+        }
+        isDisable = true;
+    timerID =  setInterval(() => {
+        document.body.style.backgroundColor = getRandomHexColor(),
+            console.log(`click`)
+    }, 1000);
+        
+};
+
+function stop() {
+     if (!isDisable) {
+            return;
+        }
+    isDisable = false;
+      clearInterval(timerID);
+       
+        console.log(`stop`)
+     
+    
+};
 
 
 
